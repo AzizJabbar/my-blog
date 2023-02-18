@@ -21,7 +21,7 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getServerSideProps({ params }) {
+export async function getStaticProps({ params }) {
   const id = params.id;
   const res = await fetch(`${process.env.API_ENDPOINT}/users/${id}`);
   const data = await res.json();
