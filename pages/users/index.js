@@ -6,6 +6,7 @@ import Post from "@/components/Post";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import AddUserModal from "@/components/AddUserModal";
+import UpdateUserModal from "@/components/UpdateUserModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -49,15 +50,13 @@ export default function Users({ users }) {
           {users.map((user) => (
             <tr key={user.id}>
               <td>
-                <a href="#">{user.name}</a>
+                <a href={"users/" + user.id}>{user.name}</a>
               </td>
               <td>{user.email}</td>
               <td>{user.gender}</td>
               <td>{user.status}</td>
               <td>
-                <a className="button" href="#">
-                  Update
-                </a>
+                <UpdateUserModal data={user} />
                 <button onClick={() => deleteUser(user.id)}>Delete</button>
               </td>
             </tr>
