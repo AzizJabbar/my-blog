@@ -11,10 +11,30 @@ import UpdateUserModal from "@/components/UpdateUserModal";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Users({ users }) {
+  const [data, setData] = useState(users);
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
+    // getServerSideProps();
   };
+  async function handleSearchForm(event) {
+    const value = event.target.value;
+    if (value === "") {
+      refreshData();
+    } else {
+      try {
+        const response = await fetch(`https://gorest.co.in/public/v2/users/?name=${value}`);
+        if (response.ok) {
+          setData(await response.json());
+        } else {
+          alert(`Error fetching data, code ${response.status}`);
+        }
+      } catch (error) {
+        alert("Oops terjadi masalah pada server");
+        console.log(error);
+      }
+    }
+  }
   async function deleteUser(id) {
     console.log(id);
     const options = {
@@ -26,8 +46,13 @@ export default function Users({ users }) {
     };
     try {
       const response = await fetch(`https://gorest.co.in/public/v2/users/${id}`, options);
-      refreshData();
-      alert("Success Delete User");
+      console.log(response);
+      if (response.ok) {
+        refreshData();
+        alert("Success Delete User");
+      } else {
+        alert("Failed to delete user");
+      }
     } catch (error) {
       alert("Error");
     }
@@ -35,6 +60,8 @@ export default function Users({ users }) {
 
   return (
     <div>
+      <input type="search" placeholder="Search user" name="search" onChange={handleSearchForm} />
+
       <AddUserModal />
       <table>
         <thead>
@@ -47,7 +74,7 @@ export default function Users({ users }) {
           </tr>
         </thead>
         <tbody>
-          {users.map((user) => (
+          {data.map((user) => (
             <tr key={user.id}>
               <td>
                 <a href={"users/" + user.id}>{user.name}</a>

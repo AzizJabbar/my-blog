@@ -25,6 +25,7 @@ export default function UpdateUserModal(props) {
       const response = await fetch(`https://gorest.co.in/public/v2/users/${id}`, options);
       if (response.ok) {
         alert("Update user success");
+        props.onStateChange({ user: user });
       } else {
         alert("Failed to update user");
       }
