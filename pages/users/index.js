@@ -13,15 +13,36 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import { redirect } from "next/dist/server/api-utils";
 import Link from "next/link";
+import { useEffect } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Users({ users }) {
-  const [data, setData] = useState(users);
+export default function Users({ users, perPage, currPage }) {
+  // Get current users
+  const indexOfLastUser = currPage * perPage;
+  const indexOfFirstUser = indexOfLastUser - perPage;
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  console.log(currentUsers);
+  const [data, setData] = useState(currentUsers);
+  // if (data != currentUsers) {
+  useEffect(() => {
+    setData(currentUsers);
+  }, [currPage]);
+  // }
+
   const router = useRouter();
   const refreshData = () => {
     router.replace(router.asPath);
+    // setData(currentUsers);
     // getServerSideProps();
+  };
+
+  const pagination = (page) => {
+    router.push({
+      pathname: router.pathname,
+      query: { page: page, per_page: perPage },
+    });
+    setData(currentUsers);
   };
   const redirect = (id) => {
     router.push(`/users/${id}`);
@@ -35,6 +56,7 @@ export default function Users({ users }) {
         const response = await fetch(`https://gorest.co.in/public/v2/users/?name=${value}`);
         if (response.ok) {
           setData(await response.json());
+          refreshData();
         } else {
           alert(`Error fetching data, code ${response.status}`);
         }
@@ -73,11 +95,11 @@ export default function Users({ users }) {
       <div className="mx-auto p-8">
         <h1 className="text-4xl font-bold text-center mb-8">Users List</h1>
         <div class="flex justify-center ">
-          <div class="xl:w-96 bg-white rounded shadow-md p-3">
+          <div class="xl:w-96 bg-white rounded-full shadow-md p-2">
             <div class="relative flex w-full flex-wrap items-stretch ">
               <input
                 type="search"
-                class="relative m-0 block w-[1%] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:placeholder:text-neutral-200"
+                class="relative m-0 block w-[1%] min-w-0 flex-auto rounded-full bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
                 placeholder="Search user"
                 name="search"
                 onChange={handleSearchForm}
@@ -93,8 +115,9 @@ export default function Users({ users }) {
           </div>
         </div>
 
-        <AddUserModal />
-        <div className="bg-white rounded mt-3">
+        <div className="bg-white rounded mt-3 ">
+          <AddUserModal />
+
           <table className="border-separate border-spacing-y-4 w-full text-md">
             <thead>
               <tr className="border-b font-medium text-slate-800 text-left">
@@ -128,17 +151,32 @@ export default function Users({ users }) {
               ))}
             </tbody>
           </table>
+          <div className="flex justify-center mt-8">
+            {Array.from({ length: Math.ceil(users.length / perPage) }, (_, i) => (
+              // <Link href={{ pathname: "/users", query: { page: i + 1, per_page: perPage } }} key={i} passHref>
+              <button onClick={() => pagination(i + 1)} className={`mx-2 py-2 px-4 rounded-full ${currPage === i + 1 ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-700"}`}>
+                {i + 1}
+              </button>
+              // </Link>
+            ))}
+          </div>
         </div>
       </div>
     </>
   );
 }
-export async function getServerSideProps() {
-  const res = await fetch(`${process.env.API_ENDPOINT}/users?page=1&per_page=20`);
+export async function getServerSideProps({ query }) {
+  const res = await fetch(`${process.env.API_ENDPOINT}/users?page=1&per_page=100`);
   const users = await res.json();
+
+  // Get current page from query parameter or default to 1
+  const currPage = query.page ? Number(query.page) : 1;
+  const perPage = query.perPage ? Number(query.perPage) : 10;
   return {
     props: {
       users,
+      currPage,
+      perPage,
     },
   };
 }
