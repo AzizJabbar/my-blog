@@ -55,7 +55,9 @@ export default function AddUserModal() {
 
   return (
     <>
-      <button onClick={openModal}>Add User</button>
+      <button onClick={openModal} className=" p-2 bg-green-500 text-white rounded">
+        Add User
+      </button>
 
       {isOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto">

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 export default function UpdateUserModal(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +49,9 @@ export default function UpdateUserModal(props) {
 
   return (
     <>
-      <button onClick={openModal}>Update</button>
+      <button className="bg-blue-500 p-2 rounded text-white" onClick={openModal}>
+        <FontAwesomeIcon icon={faPenToSquare} className="text-white" />
+      </button>
 
       {isOpen && (
         <div className="fixed z-10 inset-0 overflow-y-auto">
