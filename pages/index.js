@@ -1,27 +1,14 @@
-import Head from "next/head";
-import Image from "next/image";
-import { Inter } from "@next/font/google";
-import styles from "@/styles/Home.module.css";
-import Post from "@/components/Post";
+export async function getServerSideProps(context) {
+  const { req, res } = context;
 
-const inter = Inter({ subsets: ["latin"] });
+  if (req.url === "/") {
+    res.writeHead(302, { Location: "/posts" });
+    res.end();
+  }
 
-export default function Home({ posts }) {
-  return (
-    <ul>
-      {posts.map((post) => (
-        <Post title={post.title} body={post.body} />
-      ))}
-    </ul>
-  );
+  return { props: {} };
 }
-export async function getStaticProps() {
-  const res = await fetch(`${process.env.API_ENDPOINT}/posts`);
-  const posts = await res.json();
 
-  return {
-    props: {
-      posts,
-    },
-  };
+export default function Home() {
+  return null;
 }
