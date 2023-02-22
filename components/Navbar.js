@@ -5,7 +5,7 @@ function Navbar() {
   const router = useRouter();
 
   const isActive = (href) => {
-    return router.pathname === href ? "font-bold" : "";
+    return router.pathname.includes(href) ? "font-bold" : "";
   };
 
   return (

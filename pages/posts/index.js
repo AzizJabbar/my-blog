@@ -4,21 +4,18 @@ import { Inter } from "@next/font/google";
 import styles from "@/styles/Home.module.css";
 import Post from "@/components/Post";
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home({ posts, perPage, currPage }) {
-  const [currentPage, setCurrentPage] = useState(1);
-
   // Get current posts
   const indexOfLastPost = currPage * perPage;
   const indexOfFirstPost = indexOfLastPost - perPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
 
-  // Change page
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   return (
     <>
       <Head>
@@ -31,7 +28,7 @@ export default function Home({ posts, perPage, currPage }) {
 
         <div className="flex flex-wrap justify-center gap-4">
           {currentPosts.map((post) => (
-            <Post key={post.id} title={post.title} body={post.body} author={post.user_id} />
+            <Post key={post.id} id={post.id} title={post.title} body={post.body} author={post.user_id} />
           ))}
         </div>
 
