@@ -85,7 +85,7 @@ export default function AddUserModal() {
                       </div>
                       <div className="mt-2">
                         <label className="text-sm"> Gender </label>
-                        <div className="flex space-x-2" onChange={(e) => setGender(e.target.value)}>
+                        <div className="flex space-x-2 justify-center md:justify-start" onChange={(e) => setGender(e.target.value)}>
                           <input type="radio" value="male" name="gender" />
                           <label>Male</label>
                           <input type="radio" value="female" name="gender" />
@@ -94,7 +94,7 @@ export default function AddUserModal() {
                       </div>
                       <div className="mt-2">
                         <label className="text-sm"> Status </label>
-                        <div className="flex space-x-2" onChange={(e) => setStatus(e.target.value)}>
+                        <div className="flex space-x-2 justify-center md:justify-start" onChange={(e) => setStatus(e.target.value)}>
                           <input type="radio" value="active" name="status" />
                           <label>Active</label>
                           <input type="radio" value="inactive" name="status" />
