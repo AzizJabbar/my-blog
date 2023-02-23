@@ -4,8 +4,11 @@ export default function Post({ data, comments }) {
   return (
     <>
       <Navbar />
-      <div className="bg-white rounded shadow-md m-10 w-3/5 mx-auto p-10">
-        <h1 className="text-4xl font-bold text-center mb-8">{data.title}</h1>
+      <div className="bg-white rounded shadow-md m-10 w-4/5 mx-auto p-10">
+        <a href="/posts" className="text-slate-500 text-left hover:underline">
+          &larr; Back to posts
+        </a>
+        <h1 className="text-4xl font-bold text-center my-8">{data.title}</h1>
         <p className="text-sm text-center m-8 text-slate-500">Author: {data.user_id}</p>
         <p>{data.body}</p>
 
