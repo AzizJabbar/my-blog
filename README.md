@@ -1,38 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## My Blog by Aziz Jabbar Shiddiq
 
-## Getting Started
+To access the website, open link: https://my-blog-aziz.vercel.app
 
-First, run the development server:
+This website only use light mode theme, so if you have dark mode on please turn it off to avoid coloring error
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## About
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project created by Aziz Jabbar Shiddiq with Next.js, a react front-end framework made by Vercel.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+This project only contains front-end, while for the back-end I used the data from public api https://gorest.co.in/
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+To run Next.js application on localhost, open the terminal and cd to project, then type `npm run dev`. It should be deployed on localhost:3000.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### 1. Posts List
 
-## Learn More
+Open "/posts" or click "Posts" on navbar to access posts list
 
-To learn more about Next.js, take a look at the following resources:
+![Posts List](https://i.ibb.co/K9pcK2H/image-2023-02-23-233857235.png)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### 2. Post Detail
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+You can click on each post and see the detail of the post. There is comment section on the bottom.
 
-## Deploy on Vercel
+![Post Detail](https://i.ibb.co/T0FHd0t/image-2023-02-23-233706752.png)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+#### 3. Users List
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Open "/users" or click "Users" on navbar to access users list
+![Users list](https://i.ibb.co/3s6yL93/image-2023-02-23-234216329.png)
+
+#### 4. User Detail
+
+You can see the user detail by clicking on green button with eye icon on each row of user.
+![User detail](https://i.ibb.co/YPPkp2f/image-2023-02-23-234406082.png)
+
+#### 5. Add user
+
+You can add user by clicking "Add user" button on users list page. You will get form to fill-in the user detail. After filling the detail, you can click "Submit"
+![Add user](https://i.ibb.co/8KDPd54/image-2023-02-23-234628424.png)
+
+#### 6. Update user
+
+You can update user by clicking blue button with pencil icon on each users row. You will get form to fill-in the user detail. After filling the detail, you can click "Submit"
+![Update user](https://i.ibb.co/0qNjsLM/image-2023-02-23-234801583.png)
+
+#### 7. Delete user
+
+You can delete a user by clicking the red button with trash icon on each users row. You will get confirmation alert to delete the user. If you confirm, the user will be deleted.
+![Delete user confirmation](https://i.ibb.co/x10Jz80/image-2023-02-23-235002892.png)
+
+#### 8. Search user
+
+You can use search box to search for users. It will perform search while you type, so you don't need to press enter or click a button.
+![Search user](https://i.ibb.co/Xy8gWY0/image-2023-02-23-235156560.png)
+Note: This feature use async method with state
