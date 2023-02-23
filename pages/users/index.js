@@ -118,13 +118,13 @@ export default function Users({ users, perPage, currPage }) {
         <div className="bg-white rounded mt-3 ">
           <AddUserModal />
 
-          <table className="border-separate border-spacing-y-4 w-full text-md">
+          <table className="border-separate border-spacing-y-4 w-full md:text-md text-sm ">
             <thead>
-              <tr className="border-b font-medium text-slate-800 text-left">
+              <tr className="border-b md:font-medium font-sm text-slate-800 text-left">
                 <th className="py-3 pl-5">Username</th>
-                <th className="py-3 ">Email</th>
-                <th className="py-3 ">Gender</th>
-                <th className="py-3 ">Status</th>
+                <th className="py-3 md:table-cell hidden">Email</th>
+                <th className="py-3 md:table-cell hidden">Gender</th>
+                <th className="py-3 md:table-cell hidden">Status</th>
                 <th className="text-center py-3">Action</th>
               </tr>
             </thead>
@@ -135,9 +135,9 @@ export default function Users({ users, perPage, currPage }) {
                     {/* <a href={"users/" + user.id}>{user.name}</a> */}
                     {user.name}
                   </td>
-                  <td>{user.email}</td>
-                  <td>{user.gender}</td>
-                  <td>{user.status}</td>
+                  <td className="md:table-cell hidden">{user.email}</td>
+                  <td className="md:table-cell hidden">{user.gender}</td>
+                  <td className="md:table-cell hidden">{user.status}</td>
                   <td className="flex space-x-3 justify-center">
                     <button className="bg-green-500 text-white p-2 rounded " onClick={() => redirect(user.id)}>
                       <FontAwesomeIcon icon={faEye} className="text-white" />
@@ -151,7 +151,7 @@ export default function Users({ users, perPage, currPage }) {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-center mt-8">
+          <div className="flex justify-center mt-8 flex-wrap">
             {Array.from({ length: Math.ceil(users.length / perPage) }, (_, i) => (
               // <Link href={{ pathname: "/users", query: { page: i + 1, per_page: perPage } }} key={i} passHref>
               <button onClick={() => pagination(i + 1)} className={`mx-2 py-2 px-4 rounded-full ${currPage === i + 1 ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-700"}`}>
