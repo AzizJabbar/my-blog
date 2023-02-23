@@ -27,12 +27,12 @@ export default function Users({ users, perPage, currPage }) {
   // if (data != currentUsers) {
   useEffect(() => {
     setData(currentUsers);
-  }, [currPage]);
+  }, [currPage, users]);
   // }
 
   const router = useRouter();
   const refreshData = () => {
-    router.replace(router.asPath);
+    router.push(router.asPath);
     // setData(currentUsers);
     // getServerSideProps();
   };
@@ -53,10 +53,10 @@ export default function Users({ users, perPage, currPage }) {
       refreshData();
     } else {
       try {
-        const response = await fetch(`https://gorest.co.in/public/v2/users/?name=${value}`);
+        const response = await fetch(`https://gorest.co.in/public/v2/users/?name=${value}`, { headers: { Authorization: "Bearer 48f0213961ef4084e90f6cd03881e8b89903a733772d4fa9c471ec316bd8b126" } });
+        console.log(value);
         if (response.ok) {
           setData(await response.json());
-          refreshData();
         } else {
           alert(`Error fetching data, code ${response.status}`);
         }
@@ -75,17 +75,19 @@ export default function Users({ users, perPage, currPage }) {
         Authorization: "Bearer " + "48f0213961ef4084e90f6cd03881e8b89903a733772d4fa9c471ec316bd8b126",
       },
     };
-    try {
-      const response = await fetch(`https://gorest.co.in/public/v2/users/${id}`, options);
-      console.log(response);
-      if (response.ok) {
-        refreshData();
-        alert("Success Delete User");
-      } else {
-        alert("Failed to delete user");
+    if (confirm("Are you sure you want to delete this user?")) {
+      try {
+        const response = await fetch(`https://gorest.co.in/public/v2/users/${id}`, options);
+        console.log(response);
+        if (response.ok) {
+          alert("Success Delete User");
+          refreshData();
+        } else {
+          alert("Failed to delete user");
+        }
+      } catch (error) {
+        alert("Error");
       }
-    } catch (error) {
-      alert("Error");
     }
   }
 
