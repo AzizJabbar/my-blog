@@ -170,7 +170,7 @@ export default function Users({ users, perPage, currPage }) {
   );
 }
 export async function getServerSideProps({ query }) {
-  const res = await fetch(`${process.env.API_ENDPOINT}/users?page=1&per_page=100`);
+  const res = await fetch(`https://gorest.co.in/public/v2/users?page=1&per_page=100`);
   const users = await res.json();
 
   // Get current page from query parameter or default to 1

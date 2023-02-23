@@ -45,7 +45,7 @@ export default function Home({ posts, perPage, currPage }) {
 }
 export async function getServerSideProps({ query }) {
   // Fetch data from an API
-  const res = await fetch(`${process.env.API_ENDPOINT}/posts?page=1&per_page=50`);
+  const res = await fetch(`https://gorest.co.in/public/v2/posts?page=1&per_page=50`);
   const posts = await res.json();
 
   // Get current page from query parameter or default to 1
