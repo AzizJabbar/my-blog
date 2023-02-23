@@ -51,7 +51,9 @@ export default function Users({ users, perPage, currPage }) {
     const value = event.target.value;
     if (value === "") {
       refreshData();
+      document.getElementById("pagination").classList.remove("hidden");
     } else {
+      document.getElementById("pagination").classList.add("hidden");
       try {
         const response = await fetch(`https://gorest.co.in/public/v2/users/?name=${value}`, { headers: { Authorization: "Bearer 48f0213961ef4084e90f6cd03881e8b89903a733772d4fa9c471ec316bd8b126" } });
         console.log(value);
@@ -153,7 +155,7 @@ export default function Users({ users, perPage, currPage }) {
               ))}
             </tbody>
           </table>
-          <div className="flex justify-center mt-8 flex-wrap">
+          <div id="pagination" className="flex justify-center flex-wrap p-8">
             {Array.from({ length: Math.ceil(users.length / perPage) }, (_, i) => (
               // <Link href={{ pathname: "/users", query: { page: i + 1, per_page: perPage } }} key={i} passHref>
               <button onClick={() => pagination(i + 1)} className={`mx-2 py-2 px-4 rounded-full ${currPage === i + 1 ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-700"}`}>
