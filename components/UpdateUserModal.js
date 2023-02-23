@@ -1,11 +1,16 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
 
 export default function UpdateUserModal(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useState(props.data);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const refreshData = () => {
+    router.push(router.asPath);
+  };
   const submitUser = async (event) => {
     console.log(user);
     event.preventDefault();
@@ -27,12 +32,12 @@ export default function UpdateUserModal(props) {
       const response = await fetch(`https://gorest.co.in/public/v2/users/${id}`, options);
       if (response.ok) {
         alert("Update user success");
-        props.onStateChange({ user: user });
+        refreshData();
       } else {
         alert("Failed to update user");
       }
     } catch (error) {
-      alert("Failed to update user");
+      alert("Something went wrong");
     }
 
     // await setIsLoading(false);
@@ -94,18 +99,18 @@ export default function UpdateUserModal(props) {
                       <div className="mt-2">
                         <label className="text-sm"> Gender </label>
                         <div className="flex space-x-2 justify-center md:justify-start" onChange={(event) => setUser((user) => ({ ...user, [event.target.name]: event.target.value }))}>
-                          <input type="radio" value="male" name="gender" checked={user.gender === "male"} />
+                          <input type="radio" value="male" name="gender" defaultChecked={user.gender === "male"} />
                           <label>Male</label>
-                          <input type="radio" value="female" name="gender" checked={user.gender === "female"} />
+                          <input type="radio" value="female" name="gender" defaultChecked={user.gender === "female"} />
                           <label>Female</label>
                         </div>
                       </div>
                       <div className="mt-2">
                         <label className="text-sm"> Status </label>
                         <div className="flex space-x-2 justify-center md:justify-start" defaultValue={user.name} onChange={(event) => setUser((user) => ({ ...user, [event.target.name]: event.target.value }))}>
-                          <input type="radio" value="active" name="status" checked={user.status === "active"} />
+                          <input type="radio" value="active" name="status" defaultChecked={user.status === "active"} />
                           <label>Active</label>
-                          <input type="radio" value="inactive" name="status" checked={user.status === "inactive"} />
+                          <input type="radio" value="inactive" name="status" defaultChecked={user.status === "inactive"} />
                           <label>Inactive</label>
                         </div>
                       </div>
