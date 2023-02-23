@@ -40,7 +40,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }) {
   const id = params.id;
   const res = await fetch(`https://gorest.co.in/public/v2/posts/${id}`);
-  const comments = await (await fetch(`${process.env.API_ENDPOINT}/posts/${id}/comments`)).json();
+  const comments = await (await fetch(`https://gorest.co.in/public/v2/posts/${id}/comments`)).json();
   const data = await res.json();
   return {
     props: {
