@@ -96,21 +96,21 @@ export default function Users({ users, perPage, currPage }) {
       <Navbar />
       <div className="mx-auto p-8">
         <h1 className="text-4xl font-bold text-center mb-8">Users List</h1>
-        <div class="flex justify-center ">
-          <div class="xl:w-96 bg-white rounded-full shadow-md p-2">
-            <div class="relative flex w-full flex-wrap items-stretch ">
+        <div className="flex justify-center ">
+          <div className="xl:w-96 bg-white rounded-full shadow-md p-2">
+            <div className="relative flex w-full flex-wrap items-stretch ">
               <input
                 type="search"
-                class="relative m-0 block w-[1%] min-w-0 flex-auto rounded-full bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
+                className="relative m-0 block w-[1%] min-w-0 flex-auto rounded-full bg-transparent bg-clip-padding px-3 py-1.5 text-base font-normal text-neutral-700 outline-none transition duration-300 ease-in-out focus:border-primary-600 focus:text-neutral-700 focus:shadow-te-primary focus:outline-none"
                 placeholder="Search user"
                 name="search"
                 onChange={handleSearchForm}
                 aria-label="Search"
                 aria-describedby="button-addon2"
               />
-              <span class="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200" id="basic-addon2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                  <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+              <span className="input-group-text flex items-center whitespace-nowrap rounded px-3 py-1.5 text-center text-base font-normal text-neutral-700 dark:text-neutral-200" id="basic-addon2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
+                  <path fillRule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clipRule="evenodd" />
                 </svg>
               </span>
             </div>
@@ -144,7 +144,7 @@ export default function Users({ users, perPage, currPage }) {
                     <button className="bg-green-500 text-white p-2 rounded " onClick={() => redirect(user.id)}>
                       <FontAwesomeIcon icon={faEye} className="text-white" />
                     </button>
-                    <UpdateUserModal data={user} />
+                    <UpdateUserModal key={user.id} data={user} />
                     <button className="bg-red-500 text-white p-2 rounded " onClick={() => handleDeleteUser(user.id)}>
                       <FontAwesomeIcon icon={faTrash} className="text-white" />
                     </button>
