@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 export default function AddUserModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,14 +32,19 @@ export default function AddUserModal() {
     };
     try {
       const response = await fetch(`https://gorest.co.in/public/v2/users`, options);
-      setUser(JSONdata);
-      console.log(user);
-      console.log(JSONdata);
+      // setUser(JSONdata);
+      // console.log(user);
+      // console.log(JSONdata);
       console.log(response);
-      refreshData();
-      alert("Add user success");
+      // refreshData();
+      if (response.ok) {
+        alert("Add user success");
+        closeModal();
+      } else {
+        alert("Add user failed, code: " + response.status);
+      }
     } catch (error) {
-      alert("Failed to add user");
+      alert("Something went wrong");
     }
 
     // await setIsLoading(false);
