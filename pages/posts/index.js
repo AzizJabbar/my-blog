@@ -32,7 +32,7 @@ export default function Home({ posts, perPage, currPage }) {
           ))}
         </div>
 
-        <div className="flex justify-center mt-8">
+        <div className="flex justify-center mt-8 flex-wrap ">
           {Array.from({ length: Math.ceil(posts.length / perPage) }, (_, i) => (
             <Link href={{ pathname: "/posts", query: { page: i + 1, per_page: perPage } }} key={i} passHref>
               <button className={`mx-2 py-2 px-4 rounded-full ${currPage === i + 1 ? "bg-gray-900 text-white" : "bg-gray-200 text-gray-700"}`}>{i + 1}</button>
@@ -45,12 +45,12 @@ export default function Home({ posts, perPage, currPage }) {
 }
 export async function getServerSideProps({ query }) {
   // Fetch data from an API
-  const res = await fetch(`${process.env.API_ENDPOINT}/posts`);
+  const res = await fetch(`${process.env.API_ENDPOINT}/posts?page=1&per_page=50`);
   const posts = await res.json();
 
   // Get current page from query parameter or default to 1
   const currPage = query.page ? Number(query.page) : 1;
-  const perPage = query.perPage ? Number(query.perPage) : 2;
+  const perPage = query.perPage ? Number(query.perPage) : 5;
   return {
     props: {
       posts,
